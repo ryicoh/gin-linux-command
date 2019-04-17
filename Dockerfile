@@ -19,6 +19,6 @@ COPY --from=builder /go/bin/school-linux /usr/bin/school-linux
 
 WORKDIR /root
 
-EXPOSE 1313
+EXPOSE 8080
 
 CMD ["school-linux"]

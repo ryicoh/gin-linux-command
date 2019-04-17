@@ -1,0 +1,18 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: |
+          echo $DOCKER_USER
+          echo $IMAGE_NAME
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+      - run: docker build -t $IMAGE_NAME .
+
+      - run: docker tag $IMAGE_NAME $DOCKER_USER/$IMAGE_NAME:$CIRCLE_BRANCH
+      - run: docker tag $IMAGE_NAME $DOCKER_USER/$IMAGE_NAME:latest
+
+      - run: docker push $DOCKER_USER/$IMAGE_NAME:$CIRCLE_BRANCH
+      - run: docker push $DOCKER_USER/$IMAGE_NAME:latest
